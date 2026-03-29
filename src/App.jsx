@@ -7,21 +7,24 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import GitHubContributions from './components/GitHubContributions';
 import Footer from './components/Footer';
+import { LanguageProvider } from './context/LanguageContext';
 
 function App() {
   return (
-    <div className="app-wrapper">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Projects />
-        <Skills />
-        <GitHubContributions />
-      </main>
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="app-wrapper">
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Experience />
+          <Projects />
+          <Skills />
+          <GitHubContributions />
+        </main>
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }
 

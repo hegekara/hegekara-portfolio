@@ -1,6 +1,24 @@
 import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Hero() {
+  const { lang } = useLanguage();
+
+  const content = {
+    en: {
+      eyebrow: 'Software Development Engineer',
+      desc: 'Software Engineering student at Kocaeli University building scalable web & mobile applications. Passionate about microservices, React, and clean backend architecture.',
+      btnProjects: 'View Projects',
+      btnContact: 'Get In Touch'
+    },
+    tr: {
+      eyebrow: 'Yazılım Geliştirme Mühendisi',
+      desc: 'Kocaeli Üniversitesi Yazılım Mühendisliği öğrencisiyim. Ölçeklenebilir web ve mobil uygulamalar geliştiriyorum. Mikroservisler, React ve temiz backend mimarilerine tutkuluyum.',
+      btnProjects: 'Projeleri Gör',
+      btnContact: 'İletişime Geç'
+    }
+  };
+
   return (
     <section className="hero-section" id="hero">
       {/* Background effects */}
@@ -11,53 +29,32 @@ export default function Hero() {
       <div className="container position-relative">
         <div className="row align-items-center">
           <div className="col-lg-8">
-            {/* Eyebrow */}
             <p className="hero-eyebrow fade-in-up">
-              Software Development Engineer
+              {content[lang].eyebrow}
             </p>
-
-            {/* Name */}
             <h1 className="hero-name fade-in-up delay-1">
               Hilmi Ege<br />Kara
             </h1>
-
-            {/* Title line */}
             <p className="hero-title fade-in-up delay-2">
               <strong>@hegekara</strong> &nbsp;·&nbsp; Kocaeli, Türkiye
             </p>
-
-            {/* Description */}
             <p className="hero-desc fade-in-up delay-3">
-              Software Engineering student at Kocaeli University building scalable web &amp;
-              mobile applications. Passionate about microservices, React, and clean backend
-              architecture.
+              {content[lang].desc}
             </p>
-
-            {/* CTA buttons */}
             <div className="hero-actions fade-in-up delay-4">
               <a href="#projects" className="btn-primary-custom">
-                <i className="bi bi-code-slash" /> View Projects
+                <i className="bi bi-code-slash" /> {content[lang].btnProjects}
               </a>
-              <a
-                href="mailto:hegekara48@gmail.com"
-                className="btn-outline-custom"
-              >
-                <i className="bi bi-envelope" /> Get In Touch
+              <a href="mailto:hegekara48@gmail.com" className="btn-outline-custom">
+                <i className="bi bi-envelope" /> {content[lang].btnContact}
               </a>
             </div>
           </div>
 
-          {/* Right: terminal card */}
           <div className="col-lg-4 d-none d-lg-flex justify-content-end fade-in-up delay-3">
-            <div
-              className="glass-card"
-              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', width: 320, minWidth: 280 }}
-            >
-              {/* Terminal header */}
-              <div
-                className="d-flex align-items-center gap-2 mb-3"
-                style={{ borderBottom: '1px solid var(--border)', paddingBottom: 12 }}
-              >
+            {/* Terminal Card - Terminal ambiyansını bozmamak için İngilizce bırakıldı */}
+            <div className="glass-card" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', width: 320, minWidth: 280 }}>
+              <div className="d-flex align-items-center gap-2 mb-3" style={{ borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
                 <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57' }} />
                 <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#febc2e' }} />
                 <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840' }} />
@@ -78,12 +75,11 @@ export default function Hero() {
             </div>
           </div>
         </div>
-
         {/* Social icons bottom left */}
         <div className="hero-socials">
           {[
             { icon: 'bi-github',   href: 'https://github.com/hegekara'   },
-            { icon: 'bi-linkedin', href: 'https://linkedin.com'           },
+            { icon: 'bi-linkedin', href: 'https://www.linkedin.com/in/hilmi-ege-kara/' },
             { icon: 'bi-envelope', href: 'mailto:hegekara48@gmail.com'    },
           ].map(({ icon, href }) => (
             <a key={icon} href={href} target="_blank" rel="noreferrer" className="social-link">
@@ -104,45 +100,18 @@ export default function Hero() {
   );
 }
 
-/* ── tiny terminal helpers ── */
 function TermLine({ prompt, text, delay, blink }) {
   return (
-    <div
-      className="fade-in-up"
-      style={{ marginBottom: 4, animationDelay: `${delay}s`, opacity: 0 }}
-    >
+    <div className="fade-in-up" style={{ marginBottom: 4, animationDelay: `${delay}s`, opacity: 0 }}>
       <span style={{ color: 'var(--accent-blue)', marginRight: 8 }}>{prompt}</span>
       <span style={{ color: 'var(--text-primary)' }}>{text}</span>
-      {blink && (
-        <span
-          style={{
-            display: 'inline-block',
-            width: 7,
-            height: '1em',
-            background: 'var(--accent-cyan)',
-            marginLeft: 2,
-            verticalAlign: 'middle',
-            animation: 'dotBounce 1s step-end infinite',
-          }}
-        />
-      )}
+      {blink && <span style={{ display: 'inline-block', width: 7, height: '1em', background: 'var(--accent-cyan)', marginLeft: 2, verticalAlign: 'middle', animation: 'dotBounce 1s step-end infinite' }} />}
     </div>
   );
 }
 
 function TermOutput({ text, color, delay }) {
   return (
-    <div
-      className="fade-in-up"
-      style={{
-        marginBottom: 6,
-        paddingLeft: 18,
-        color,
-        animationDelay: `${delay}s`,
-        opacity: 0,
-      }}
-    >
-      {text}
-    </div>
+    <div className="fade-in-up" style={{ marginBottom: 6, paddingLeft: 18, color, animationDelay: `${delay}s`, opacity: 0 }}>{text}</div>
   );
 }

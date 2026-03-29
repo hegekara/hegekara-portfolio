@@ -1,7 +1,24 @@
 import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer() {
+  const { lang } = useLanguage();
   const year = new Date().getFullYear();
+
+  const content = {
+    en: {
+      tagline: 'SOFTWARE DEVELOPMENT ENGINEER',
+      copy: `© ${year} Hilmi Ege Kara  ·  Built with React.js  ·  Deployed on AWS S3`,
+      backToTop: 'BACK TO TOP'
+    },
+    tr: {
+      tagline: 'YAZILIM GELİŞTİRME MÜHENDİSİ',
+      copy: `© ${year} Hilmi Ege Kara  ·  React.js ile geliştirildi  ·  AWS S3'te yayında`,
+      backToTop: 'YUKARI DÖN'
+    }
+  };
+
+  const t = content[lang];
 
   return (
     <footer className="site-footer">
@@ -9,9 +26,9 @@ export default function Footer() {
         {/* Socials */}
         <div className="footer-socials">
           {[
-            { icon: 'bi-github',    href: 'https://github.com/hegekara',        label: 'GitHub'   },
-            { icon: 'bi-linkedin',  href: 'https://linkedin.com',               label: 'LinkedIn' },
-            { icon: 'bi-envelope',  href: 'mailto:hegekara48@gmail.com',        label: 'Email'    },
+            { icon: 'bi-github', href: 'https://github.com/hegekara', label: 'GitHub'   },
+            { icon: 'bi-linkedin', href: 'https://www.linkedin.com/in/hilmi-ege-kara/',label: 'LinkedIn' },
+            { icon: 'bi-envelope', href: 'mailto:hegekara48@gmail.com', label: 'Email'    },
           ].map(({ icon, href, label }) => (
             <a
               key={icon}
@@ -28,7 +45,7 @@ export default function Footer() {
 
         {/* Name */}
         <p className="footer-name">
-          HILMI EGE <span style={{ color: 'var(--accent-blue)' }}>KARA</span>
+          HILMİ EGE <span style={{ color: 'var(--accent-blue)' }}>KARA</span>
         </p>
 
         {/* Tagline */}
@@ -41,12 +58,12 @@ export default function Footer() {
             marginBottom: 10,
           }}
         >
-          SOFTWARE DEVELOPMENT ENGINEER
+          {t.tagline}
         </p>
 
         {/* Copy */}
         <p className="footer-copy">
-          © {year} Hilmi Ege Kara &nbsp;·&nbsp; Built with React.js &nbsp;·&nbsp; Deployed on AWS S3
+          {t.copy}
         </p>
 
         {/* Back to top */}
@@ -62,11 +79,12 @@ export default function Footer() {
             color: 'var(--text-dim)',
             letterSpacing: '0.1em',
             transition: 'color 0.2s ease',
+            textDecoration: 'none'
           }}
           onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-blue)'}
           onMouseLeave={e => e.currentTarget.style.color = 'var(--text-dim)'}
         >
-          <i className="bi bi-arrow-up" /> BACK TO TOP
+          <i className="bi bi-arrow-up" /> {t.backToTop}
         </a>
       </div>
     </footer>

@@ -1,62 +1,48 @@
 import React from 'react';
-
-const SKILLS = [
-  {
-    lang: 'Java',
-    icon: '☕',
-    items: ['OOP', 'Spring Web', 'Spring Cloud', 'Spring Security', 'Spring Boot', 'Netflix-Eureka', 'OpenFeign', 'JAXRS', 'JWT', 'Log4j'],
-  },
-  {
-    lang: 'JavaScript',
-    icon: '⚡',
-    items: ['React.js', 'React Native', 'Node.js', 'ES2022+', 'Hooks', 'Context API', 'Supabase'],
-  },
-  {
-    lang: 'C#',
-    icon: '🔷',
-    items: ['OOP', '.NET Core', 'Entity Framework', 'LINQ', 'ASP.NET'],
-  },
-  {
-    lang: 'Go',
-    icon: '🐹',
-    items: ['Chi', 'Gorilla WebSocket', 'REST APIs', 'Concurrency'],
-  },
-  {
-    lang: 'Swift',
-    icon: '🍎',
-    items: ['iOS Development', 'MapKit', 'Combine', 'Keychain', 'Localization'],
-  },
-  {
-    lang: 'Data',
-    icon: '🗄️',
-    items: ['PostgreSQL', 'MySQL', 'MSSQL', 'MongoDB', 'Supabase'],
-  },
-  {
-    lang: 'DevOps & Tools',
-    icon: '🛠️',
-    items: ['Git', 'GitHub', 'Docker', 'AWS S3', 'App Store Connect', 'Google Play Console', 'Huawei AppGallery'],
-  },
-  {
-    lang: 'Python',
-    icon: '🐍',
-    items: ['Django', 'Deep Learning', 'Data Processing', 'Kaggle Datasets'],
-  },
-];
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Skills() {
+  const { lang } = useLanguage();
+
+  const SKILLS = [
+    { langName: 'Java', icon: '☕', items: ['OOP', 'Spring Web', 'Spring Cloud', 'Spring Security', 'Spring Boot', 'Netflix-Eureka', 'OpenFeign', 'JAXRS', 'JWT', 'Log4j'] },
+    { langName: 'JavaScript', icon: '⚡', items: ['React.js', 'React Native', 'Node.js', 'ES2022+', 'Hooks', 'Context API', 'Supabase'] },
+    { langName: 'C#', icon: '🔷', items: ['OOP', '.NET Core', 'Entity Framework', 'LINQ', 'ASP.NET'] },
+    { langName: 'Go', icon: '🐹', items: ['Chi', 'Gorilla WebSocket', 'REST APIs', 'Concurrency'] },
+    { langName: 'Swift', icon: '🍎', items: ['iOS Development', 'MapKit', 'Combine', 'Keychain', 'Localization'] },
+    { langName: 'Data', icon: '🗄️', items: ['PostgreSQL', 'MySQL', 'MSSQL', 'MongoDB', 'Supabase'] },
+    { langName: lang === 'en' ? 'DevOps & Tools' : 'DevOps & Araçlar', icon: '🛠️', items: ['Git', 'GitHub', 'Docker', 'AWS S3', 'App Store Connect', 'Google Play Console', 'Huawei AppGallery'] },
+    { langName: 'Python', icon: '🐍', items: ['Django', 'Deep Learning', 'Data Processing', 'Kaggle Datasets'] },
+  ];
+
+  const content = {
+    en: {
+      sectionTitle: '04 — Skills',
+      heading: 'Tech Stack',
+      bottomNote: 'Also comfortable with REST API design, microservices architecture, and agile workflows.'
+    },
+    tr: {
+      sectionTitle: '04 — Yetenekler',
+      heading: 'Teknoloji Yığını',
+      bottomNote: 'REST API tasarımı, mikroservis mimarileri ve çevik (agile) iş akışlarına da hakimim.'
+    }
+  };
+
+  const t = content[lang];
+
   return (
     <section className="skills-section" id="skills">
       <div className="container">
-        <p className="section-title">04 &mdash; Skills</p>
-        <h2 className="section-heading">Tech Stack</h2>
+        <p className="section-title">{t.sectionTitle}</p>
+        <h2 className="section-heading">{t.heading}</h2>
 
         <div className="row g-4">
-          {SKILLS.map(({ lang, icon, items }) => (
-            <div key={lang} className="col-md-6 col-lg-4 col-xl-3">
+          {SKILLS.map(({ langName, icon, items }) => (
+            <div key={langName} className="col-md-6 col-lg-4 col-xl-3">
               <div className="skill-group h-100">
                 <p className="skill-lang">
                   <span style={{ fontSize: '1.1rem' }}>{icon}</span>
-                  {lang}
+                  {langName}
                 </p>
                 <div className="skill-tags">
                   {items.map((item) => (
@@ -81,7 +67,7 @@ export default function Skills() {
           }}
         >
           <span style={{ color: 'var(--accent-cyan)', marginRight: 8 }}>✦</span>
-          Also comfortable with REST API design, microservices architecture, and agile workflows.
+          {t.bottomNote}
         </p>
       </div>
     </section>
