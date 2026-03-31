@@ -9,8 +9,18 @@ export default function About() {
     async function fetchGitHubCount() {
       try {
         const GITHUB_USERNAME = 'hegekara';
-        const url = `/github-api/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`;
-        const res = await fetch(url);
+        const targetUrl = `https://github.com/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`;
+        
+        const url = import.meta.env.DEV 
+          ? `/github-api/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`
+          : `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+
+        const res = await fetch(url, {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+        
         const html = await res.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');

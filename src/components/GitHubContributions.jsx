@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
 const GITHUB_USERNAME = 'hegekara';
-const PROXY_URL = `/github-api/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`;
+const targetUrl = `https://github.com/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`;
 
 function parseGitHubHTML(html) {
   const parser = new DOMParser();
@@ -76,7 +76,16 @@ export default function GitHubContributions() {
   useEffect(() => {
     async function fetchContribs() {
       try {
-        const res = await fetch(PROXY_URL);
+        const PROXY_URL = import.meta.env.DEV 
+          ? `/github-api/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`
+          : `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+
+        const res = await fetch(PROXY_URL, {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+        
         const html = await res.text();
         const parsed = parseGitHubHTML(html);
         setData(parsed);

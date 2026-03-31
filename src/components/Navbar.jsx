@@ -21,6 +21,9 @@ const NAV_LINKS = {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive]     = useState('');
+  
+  const [isMobileOpen, setIsMobileOpen] = useState(false); 
+  
   const { lang, toggleLang } = useLanguage();
 
   useEffect(() => {
@@ -30,6 +33,11 @@ export default function Navbar() {
   }, []);
 
   const links = NAV_LINKS[lang];
+
+  const handleLinkClick = (href) => {
+    setActive(href);
+    setIsMobileOpen(false);
+  };
 
   return (
     <nav
@@ -44,7 +52,8 @@ export default function Navbar() {
           </a>
         </div>
 
-        <ul className="nav-links d-none d-md-flex list-unstyled mb-0 d-flex align-items-center justify-content-center gap-1" style={{ flex: 1 }}>
+        {/* Masaüstü Menü Linkleri */}
+        <ul className="nav-links d-none d-md-flex list-unstyled mb-0 align-items-center justify-content-center gap-1" style={{ flex: 1 }}>
           {links.map(({ href, label }) => (
             <li key={href}>
               <a
@@ -59,6 +68,7 @@ export default function Navbar() {
           ))}
         </ul>
 
+        {/* Masaüstü CV ve Dil Butonları */}
         <div className="d-none d-md-flex align-items-center justify-content-end gap-3" style={{ flex: 1 }}>
           <a
             href="/cv.pdf"
@@ -91,19 +101,36 @@ export default function Navbar() {
           </button>
         </div>
 
+        <button
+          className="d-md-none"
+          type="button"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            color: 'var(--accent-cyan)',
+            fontSize: '1.8rem',
+            padding: 0,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
+          <i className={`bi ${isMobileOpen ? 'bi-x' : 'bi-list'}`}></i>
+        </button>
+
       </div>
 
-      {/* MOBİL MENÜ (Değişmedi) */}
-      <div className="collapse d-md-none" id="mobileNav">
+      <div className={`collapse d-md-none ${isMobileOpen ? 'show' : ''}`} id="mobileNav">
         <div
-          className="container pb-3"
+          className="container pb-3 mt-2"
           style={{ borderTop: '1px solid var(--border)' }}
         >
           {links.map(({ href, label }) => (
             <a
               key={href}
               href={href}
-              className="d-block py-2"
+              className="d-block py-2 mt-1"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.82rem',
@@ -111,8 +138,7 @@ export default function Navbar() {
                 letterSpacing: '0.06em',
                 textDecoration: 'none'
               }}
-              data-bs-toggle="collapse"
-              data-bs-target="#mobileNav"
+              onClick={() => handleLinkClick(href)}
             >
               <span style={{ color: 'var(--accent-cyan)' }}>./</span>{label}
             </a>
@@ -121,7 +147,7 @@ export default function Navbar() {
           <a
             href="/cv.pdf"
             download="hilmi_ege_kara_cv.pdf"
-            className="d-block py-2 mt-2"
+            className="d-block py-2 mt-3"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.82rem',
@@ -130,15 +156,17 @@ export default function Navbar() {
               textDecoration: 'none',
               fontWeight: 'bold'
             }}
-            data-bs-toggle="collapse"
-            data-bs-target="#mobileNav"
+            onClick={() => setIsMobileOpen(false)}
           >
             <span style={{ color: 'var(--accent-cyan)' }}>./</span>
-            {lang === 'en' ? 'Download Resume' : 'Özgeçmiş İndir'}
+            {lang === 'en' ? 'Download Resume' : 'CV İndir'}
           </a>
 
           <button
-            onClick={toggleLang}
+            onClick={() => {
+              toggleLang();
+              setIsMobileOpen(false);
+            }}
             className="d-block py-2 mt-2 w-100 text-start"
             style={{
               background: 'transparent',
@@ -147,13 +175,12 @@ export default function Navbar() {
               fontSize: '0.82rem',
               color: 'var(--text-primary)',
               letterSpacing: '0.06em',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              paddingLeft: 0
             }}
-            data-bs-toggle="collapse"
-            data-bs-target="#mobileNav"
           >
             <span style={{ color: 'var(--accent-cyan)' }}>./</span>
-            {lang === 'en' ? 'Switch to Turkish (TR)' : 'İngilizceye Geç (EN)'}
+            {lang === 'en' ? 'TR' : 'EN'}
           </button>
         </div>
       </div>
