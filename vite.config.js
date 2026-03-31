@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  base: '/',
   server: {
     proxy: {
       // "/github-api" ile başlayan istekleri yakala ve github.com'a yönlendir
