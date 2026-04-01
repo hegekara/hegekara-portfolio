@@ -13,7 +13,7 @@ export default function About() {
         
         const url = import.meta.env.DEV 
           ? `/github-api/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`
-          : `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+          : `https://corsproxy.org/?${encodeURIComponent(targetUrl)}`;
 
         const res = await fetch(url, {
           headers: {
@@ -28,7 +28,7 @@ export default function About() {
         const totalEl = doc.querySelector('#js-contribution-activity-description');
         if (totalEl) {
           const m = totalEl.textContent.match(/(\d+(?:,\d+)*)/);
-          if (m) setGithubCount(m[1]);
+          if (m) setGithubCount(m[1].replace(/,/g, ''));
         }
       } catch (e) {
         setGithubCount('500+');

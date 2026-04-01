@@ -76,9 +76,11 @@ export default function GitHubContributions() {
   useEffect(() => {
     async function fetchContribs() {
       try {
+        const targetUrl = `https://github.com/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`;
+        
         const PROXY_URL = import.meta.env.DEV 
           ? `/github-api/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`
-          : `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+          : `https://corsproxy.org/?${encodeURIComponent(targetUrl)}`;
 
         const res = await fetch(PROXY_URL, {
           headers: {
