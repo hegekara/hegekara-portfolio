@@ -9,26 +9,13 @@ export default function About() {
     async function fetchGitHubCount() {
       try {
         const GITHUB_USERNAME = 'hegekara';
-        const targetUrl = `https://github.com/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`;
-        
-        const url = import.meta.env.DEV 
-          ? `/github-api/${GITHUB_USERNAME}?action=show&controller=profiles&tab=contributions&user_id=${GITHUB_USERNAME}`
-          : `https://corsproxy.org/?${encodeURIComponent(targetUrl)}`;
+        const url = `https://github-contributions-api.deno.dev/${GITHUB_USERNAME}.json`;
 
-        const res = await fetch(url, {
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-          }
-        });
+        const res = await fetch(url);
+        const data = await res.json();
         
-        const html = await res.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        
-        const totalEl = doc.querySelector('#js-contribution-activity-description');
-        if (totalEl) {
-          const m = totalEl.textContent.match(/(\d+(?:,\d+)*)/);
-          if (m) setGithubCount(m[1].replace(/,/g, ''));
+        if (data && data.totalContributions !== undefined) {
+          setGithubCount(data.totalContributions.toString());
         }
       } catch (e) {
         setGithubCount('500+');
