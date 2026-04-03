@@ -8,12 +8,12 @@ export default function Footer() {
   const content = {
     en: {
       tagline: 'SOFTWARE DEVELOPMENT ENGINEER',
-      copy: `© ${year} Hilmi Ege Kara  ·  Built with React.js  ·  Deployed on AWS S3`,
+      copy: `© ${year} Hilmi Ege Kara  ·  Built with React.js`,
       backToTop: 'BACK TO TOP'
     },
     tr: {
       tagline: 'YAZILIM GELİŞTİRME MÜHENDİSİ',
-      copy: `© ${year} Hilmi Ege Kara  ·  React.js ile geliştirildi  ·  AWS S3'te yayında`,
+      copy: `© ${year} Hilmi Ege Kara  ·  React.js ile geliştirildi`,
       backToTop: 'YUKARI DÖN'
     }
   };

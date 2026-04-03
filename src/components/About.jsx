@@ -27,7 +27,7 @@ export default function About() {
   const content = {
     en: {
       sectionTitle: '01 — About',
-      heading: 'Who I Am',
+      heading: 'Who Am I',
       p1: <>I'm a Software Engineering student at <strong style={{ color: 'var(--text-primary)' }}>Kocaeli University</strong> with a GPA of 3.65/4, currently working as a Software Development Engineer at <strong style={{ color: 'var(--accent-blue)' }}> Vericom Teknoloji A.Ş.</strong> My focus is on building performant, maintainable web and mobile applications using modern technologies.</>,
       p2: <>I specialize in <strong style={{ color: 'var(--text-primary)' }}>React</strong> and <strong style={{ color: 'var(--text-primary)' }}>React Native</strong> on the frontend, and <strong style={{ color: 'var(--text-primary)' }}>Java Spring Boot</strong> microservices on the backend. I enjoy designing clean APIs, working with relational &amp; NoSQL databases, and handling end-to-end deployment pipelines.</>,
       p3: <>As a member of the <strong style={{ color: 'var(--accent-cyan)' }}>Star-Lab (Software Technologies Research Laboratory)</strong> at KOU, I stay engaged with cutting-edge research and collaborative academic projects.</>,
