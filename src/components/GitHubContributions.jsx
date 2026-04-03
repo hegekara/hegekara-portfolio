@@ -6,10 +6,10 @@ const GITHUB_USERNAME = 'hegekara';
 // Katkı seviyesine göre mavi tonlarını ve koyu griyi belirlediğimiz fonksiyon
 const getThemeColor = (level) => {
   switch (level) {
-    case 'FIRST_QUARTILE': return '#93c5fd';  // Açık Mavi
-    case 'SECOND_QUARTILE': return '#60a5fa'; // Orta Mavi
-    case 'THIRD_QUARTILE': return '#3b82f6';  // Mavi
-    case 'FOURTH_QUARTILE': return '#1d4ed8'; // Koyu Mavi
+    case 'FIRST_QUARTILE': return '#0e44da';  // Açık Mavi
+    case 'SECOND_QUARTILE': return '#3b82f6'; // Orta Mavi
+    case 'THIRD_QUARTILE': return '#60a5fa';  // Mavi
+    case 'FOURTH_QUARTILE': return '#9bcaff'; // Koyu Mavi
     case 'NONE':
     default: return '#374151';                // Koyu Gri
   }
@@ -191,7 +191,6 @@ export default function GitHubContributions() {
           </div>
         </div>
 
-        {/* Aylık Dağılım Butonu */}
         <div className="mt-5 text-center">
           <button
             onClick={() => setIsMonthsOpen(!isMonthsOpen)}
@@ -203,7 +202,6 @@ export default function GitHubContributions() {
           </button>
         </div>
 
-        {/* Aylık Dağılım Listesi (Açılır/Kapanır) */}
         {isMonthsOpen && (
           <div className="row justify-content-center mt-4 fade-in-up">
             <div className="col-md-8 col-lg-6">
